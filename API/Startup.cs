@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Swagger;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,7 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Builder;
+using Asp.Versioning.ApiExplorer;
 
 namespace API
 {
@@ -28,10 +34,29 @@ namespace API
         {
 
             services.AddControllers();
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>,ConfigureSwaggerOptions>();
+            services.AddEndpointsApiExplorer();//??
+            services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
+                
+            }).AddApiExplorer(options =>
+            {
+                options.SubstituteApiVersionInUrl = true;
+                options.GroupNameFormat = "'v'VVV";
+                options.AssumeDefaultVersionWhenUnspecified = true;
+
+            });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+                /*c.SwaggerDoc("v1", new OpenApiInfo { Title = "V1 Test", Version = "v1" });            
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = "V1 Test", Version = "v2" }); */
+                c.OperationFilter<SwaggerDefaultValues>();
             });
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +66,11 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
+                });
             }
 
             app.UseHttpsRedirection();
@@ -57,3 +86,5 @@ namespace API
         }
     }
 }
+
+//https://dateo-software.de/blog/web-api-versioning

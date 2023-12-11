@@ -1,13 +1,12 @@
-using Asp.Versioning;
+/*using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.v1
 {
     [ApiController]
-    [ApiVersion("1.0")]
-    [ApiVersion("2.0")]
+    [ApiVersion("3.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastV2Controller : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -16,21 +15,22 @@ namespace API.Controllers.v1
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastV2Controller(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecastV1")]
+        [HttpGet(Name = "GetWeatherForecastV2")]
         public IEnumerable<WeatherForecast> Get()
         {
+            var sumarry = Summaries[Random.Shared.Next(Summaries.Length)];
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                Summary = $"{sumarry} - From v2"
             })
             .ToArray();
         }
     }
-}
+}*/
