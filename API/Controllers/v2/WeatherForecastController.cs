@@ -1,13 +1,14 @@
-/*using Asp.Versioning;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.v1
+namespace API.Controllers.v2
 {
     [ApiController]
-    [ApiVersion("3.0")]
+    [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class WeatherForecastV2Controller : ControllerBase
+    public class WeatherForecastController : ControllerBase
     {
+        private readonly string _version = "2.0";
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -15,12 +16,12 @@ namespace API.Controllers.v1
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastV2Controller(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecastV2")]
+        [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
             var sumarry = Summaries[Random.Shared.Next(Summaries.Length)];
@@ -28,9 +29,10 @@ namespace API.Controllers.v1
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = $"{sumarry} - From v2"
+                Summary = $"{sumarry} - From v2",
+                Version = _version
             })
             .ToArray();
         }
     }
-}*/
+}
