@@ -35,7 +35,6 @@ namespace API
 
             services.AddControllers();
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>,ConfigureSwaggerOptions>();
-            services.AddEndpointsApiExplorer();//??
             services.AddApiVersioning(options =>
             {
                 options.DefaultApiVersion = new ApiVersion(1, 0);
@@ -52,8 +51,6 @@ namespace API
             });
             services.AddSwaggerGen(c =>
             {
-                /*c.SwaggerDoc("v1", new OpenApiInfo { Title = "V1 Test", Version = "v1" });            
-                c.SwaggerDoc("v2", new OpenApiInfo { Title = "V1 Test", Version = "v2" }); */
                 c.OperationFilter<SwaggerDefaultValues>();
             });
             services.AddMvc();
