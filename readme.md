@@ -1,1 +1,1 @@
-dotnet sln add API/
+` docker build -t hemantshelar/api:1.0.0 .`
