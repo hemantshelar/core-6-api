@@ -7,3 +7,5 @@
 After executing above command we should see following two entries in `mmc` certificates console
 
 <img src='./../imgs/PersonalCertificates.png'>
+
+<img src='./../imgs/TrustedRootCACertificates.png'>
