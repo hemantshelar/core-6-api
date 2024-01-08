@@ -70,7 +70,7 @@ namespace API
                 });
             }
 
-            //
+            //Added test comment
             app.UseHttpsRedirection();
 
             app.UseRouting();
