@@ -28,6 +28,10 @@ Remove certificate
 
 The HTTPS developer certificate was generated successfully.
 
+If certificate is not trusted you will see below message
+
+<img src='./imgs/NotSecure.png'>
+
 ## Trust the certificate
 
 `dotnet dev-certs https --trust`
@@ -42,7 +46,12 @@ The HTTPS developer certificate was generated successfully.
  docker run -p 8080:80 -p 8081:443 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=8081 -e ASPNETCORE_ENVIRONMENT=Development -v C:\Users\User\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets  -v C:\Users\User\AppData\Roaming\Microsoft\UserSecrets:/home/app/.microsoft/usersecrets -v C:\Users\User\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https -v C:\Users\User\AppData\Roaming\ASP.NET\Https:/home/app/.aspnet/https  weatherapi
 
 
+  docker run -p 8080:80 -p 8081:443 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=8081 -e ASPNETCORE_ENVIRONMENT=Development -v C:\Users\1149449\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets  -v C:\Users\1149449\AppData\Roaming\Microsoft\UserSecrets:/home/app/.microsoft/usersecrets -v C:\Users\1149449\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https -v C:\Users\1149449\AppData\Roaming\ASP.NET\Https:/home/app/.aspnet/https  weatherapi
 
 
 
+
+> In order to start running API project from command line we can use following command
+
+`dotnet run --launch-profile "API"`
 
