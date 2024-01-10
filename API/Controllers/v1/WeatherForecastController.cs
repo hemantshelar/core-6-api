@@ -43,7 +43,7 @@ namespace API.Controllers.v1
 			var httpClient = _httpClientFactory.CreateClient();
 
 			var uri = new Uri("https://visual-crossing-weather.p.rapidapi.com/forecast?aggregateHours=24&location=Washington%2CDC%2CUSA&contentType=csv&unitGroup=us&shortColumnNames=0");
-			httpClient.DefaultRequestHeaders.Add("X-RapidAPI-Key", "e72cca8c08msh34dae1d590ad1b4p15109djsn09e07c48c16b");
+			
 			var result = await httpClient.GetAsync(uri);
 
 			var responseAsString = await result.Content.ReadAsStringAsync();
