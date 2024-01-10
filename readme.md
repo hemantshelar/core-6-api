@@ -55,3 +55,10 @@ If certificate is not trusted you will see below message
 
 `dotnet run --launch-profile "API"`
 
+
+**Using WeatherAPI**
+
+I am using [RAPIDAPI](https://rapidapi.com/visual-crossing-corporation-visual-crossing-corporation-default/api/visual-crossing-weather)
+
+[This](https://www.youtube.com/watch?v=bAXZx0zOeCU) is very good tutorial explaing how and why to use IHttpClientFactory. 
+> netstat -ano | findstr 3.104.132.95
