@@ -10,11 +10,11 @@ namespace API.Controllers.v1.Tests
 		{
 			//Arrange
 			var _logger = new NullLogger<WeatherForecastController>();
-			var wfCtrl = new WeatherForecastController(_logger);
+			var wfCtrl = new WeatherForecastController(_logger,null);
 
 			//Act
 
-			var result = wfCtrl.Get();
+			var result = wfCtrl.GetWeatherForecast();
 
 			//Assert
 			var actualCount = result.Count();

@@ -15,14 +15,16 @@ namespace API.Controllers.v1
 		};
 
 		private readonly ILogger<WeatherForecastController> _logger;
+		private readonly IHttpClientFactory _httpClientFactory;
 
-		public WeatherForecastController(ILogger<WeatherForecastController> logger)
+		public WeatherForecastController(ILogger<WeatherForecastController> logger, IHttpClientFactory httpClientFactory)
 		{
 			_logger = logger;
+			_httpClientFactory = httpClientFactory;
 		}
 
 		[HttpGet(Name = "GetWeatherForecast")]
-		public IEnumerable<WeatherForecast> Get()
+		public IEnumerable<WeatherForecast> GetWeatherForecast()
 		{
 			return Enumerable.Range(1, 5).Select(index => new WeatherForecast
 			{
@@ -32,6 +34,23 @@ namespace API.Controllers.v1
 				Version = _version
 			})
 			.ToArray();
+		}
+
+
+		[HttpGet("{cityName}",Name = "GetWeatherByCityName")]
+		public async Task<IActionResult> GetWeatherByCityName(string cityName)
+		{
+			var httpClient = _httpClientFactory.CreateClient();
+
+			var uri = new Uri("https://visual-crossing-weather.p.rapidapi.com/forecast?aggregateHours=24&location=Washington%2CDC%2CUSA&contentType=csv&unitGroup=us&shortColumnNames=0");
+			httpClient.DefaultRequestHeaders.Add("X-RapidAPI-Key", "e72cca8c08msh34dae1d590ad1b4p15109djsn09e07c48c16b");
+			var result = await httpClient.GetAsync(uri);
+
+			var responseAsString = await result.Content.ReadAsStringAsync();
+			return Ok(responseAsString);
+
+
+
 		}
 	}
 }
