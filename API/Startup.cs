@@ -17,6 +17,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.AspNetCore.Builder;
 using Asp.Versioning.ApiExplorer;
+using API.Controllers.v1;
 
 namespace API
 {
@@ -54,6 +55,9 @@ namespace API
                 c.OperationFilter<SwaggerDefaultValues>();
             });
             services.AddMvc();
+            services.AddHttpClient<WeatherForecastController>( options =>
+            {
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +74,7 @@ namespace API
                 });
             }
 
+            //Added test comment
             app.UseHttpsRedirection();
 
             app.UseRouting();
