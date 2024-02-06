@@ -18,6 +18,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.AspNetCore.Builder;
 using Asp.Versioning.ApiExplorer;
 using API.Controllers.v1;
+using API.Models;
 
 namespace API
 {
@@ -58,6 +59,9 @@ namespace API
             services.AddHttpClient<WeatherForecastController>( options =>
             {
             });
+            var apiKey = Configuration["WeatherAPIConfig:EndPoint"];
+            services.AddOptions<WeatherAPIConfig>().Bind(Configuration.GetSection("WeatherAPIConfig"));
+            Console.WriteLine(apiKey);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

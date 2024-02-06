@@ -1,4 +1,6 @@
+using API.Models;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
 namespace API.Controllers.v1.Tests
 {
@@ -9,8 +11,13 @@ namespace API.Controllers.v1.Tests
 		public void GetShouldReturnListOfWeatherForecastObjects()
 		{
 			//Arrange
-			var _logger = new NullLogger<WeatherForecastController>();
-			var wfCtrl = new WeatherForecastController(_logger,null);
+			var options = Options.Create<WeatherAPIConfig>(new WeatherAPIConfig
+			{
+
+			});
+		    var _logger = new NullLogger<WeatherForecastController>();
+
+			var wfCtrl = new WeatherForecastController(_logger,null,options);
 
 			//Act
 

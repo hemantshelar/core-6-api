@@ -1,5 +1,7 @@
+using API.Models;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace API.Controllers.v1
 {
@@ -17,7 +19,7 @@ namespace API.Controllers.v1
 		private readonly ILogger<WeatherForecastController> _logger;
 		private readonly IHttpClientFactory _httpClientFactory;
 
-		public WeatherForecastController(ILogger<WeatherForecastController> logger, IHttpClientFactory httpClientFactory)
+		public WeatherForecastController(ILogger<WeatherForecastController> logger, IHttpClientFactory httpClientFactory,IOptions<WeatherAPIConfig> _config)
 		{
 			_logger = logger;
 			_httpClientFactory = httpClientFactory;
@@ -47,10 +49,6 @@ namespace API.Controllers.v1
 			var result = await httpClient.GetAsync(uri);
 
 			var responseAsString = await result.Content.ReadAsStringAsync();
-			return Ok(responseAsString);
-
-
-
-		}
+			return Ok(responseAsString);		}
 	}
 }
